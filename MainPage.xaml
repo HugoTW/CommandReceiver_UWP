@@ -5,9 +5,11 @@
     xmlns:local="using:Receiver_UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Height="407.407" Width="722.222">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <TextBlock   HorizontalAlignment="Left" FontSize="55" Margin="29,21,0,0" TextWrapping="Wrap" Text="Command:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="CommandInfo"   HorizontalAlignment="Left" FontSize="55" Margin="91,89,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

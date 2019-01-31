@@ -96,5 +96,57 @@ namespace Receiver_UWP
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
+        #region OnActivated
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            switch (args.Kind)
+            {
+                case ActivationKind.CommandLineLaunch:
+                    CommandLineActivatedEventArgs cmdLineArgs =
+                        args as CommandLineActivatedEventArgs;
+                    CommandLineActivationOperation operation = cmdLineArgs.Operation;
+                    string cmdLineString = operation.Arguments;
+                    string activationPath = operation.CurrentDirectoryPath;
+
+                    Frame rootFrame = Window.Current.Content as Frame;
+                    if (rootFrame == null)
+                    {
+                        rootFrame = new Frame();
+                        Window.Current.Content = rootFrame;
+                    }
+
+                    ParsedCommands parsedCommands =
+                        CommandLineParser.ParseUntrustedArgs(cmdLineString);
+                    if (parsedCommands != null && parsedCommands.Count > 0)
+                    {
+                        
+                        foreach (ParsedCommand command in parsedCommands)
+                        {
+                            switch (command.Type)
+                            {
+                  
+                                case ParsedCommandType.NewColor:
+                                    rootFrame.Navigate(typeof(MainPage), command.Payload);
+                                    break;
+                                case ParsedCommandType.Unknown:
+                                    rootFrame.Navigate(typeof(MainPage), cmdLineString);
+                                    break;
+                            }
+                        }
+                        
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(MainPage), "No Command received yet!");
+                    }
+
+                    Window.Current.Activate();
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

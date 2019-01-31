@@ -26,5 +26,11 @@ namespace Receiver_UWP
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string cmdLineString = e.Parameter as string;
+            CommandInfo.Text = cmdLineString;
+        }
     }
 }
